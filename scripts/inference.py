@@ -185,7 +185,7 @@ def main():
             # Generate response
             try:
                 print("\nThinking...")
-                response = WattsGemmaModel.generate_watts_response(
+                response = WattsGemmaModel.generate_response(
                     model=model,
                     tokenizer=tokenizer,
                     prompt=user_input,
@@ -196,7 +196,7 @@ def main():
                 )
                 
                 # Log and print response
-                logging.info(f"WattsGemma: {response}")
+                # logging.info(f"WattsGemma: {response}")
                 conversation_history.append(f"WattsGemma: {response}")
                 
                 print(f"\n{response}")

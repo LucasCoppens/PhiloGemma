@@ -190,18 +190,21 @@ class WattsGemmaModel:
         model: Gemma3ForCausalLM,
         tokenizer: AutoTokenizer,
         prompt: str,
-        max_length: int = 512,
+        max_length: int = 150,
         temperature: float = 0.7,
         top_p: float = 0.9,
         is_finetuned: bool = False
     ) -> str:
         """Generate a response with the model."""
         
-        # For Gemma 3, need to use the chat template
+        # Add a system prompt to guide the conversation style
+        system_prompt = "You are an AI assistant. Provide insightful but concise responses (maximum 6-7 sentences). After you are done formulating your answer, write \"#END\". Engage with the user in a conversational manner rather than delivering long lectures. After sharing your wisdom, end with a thoughtful question to continue the dialogue."
+        
+        # For Gemma 3, use the chat template with system prompt
         messages = [
             {
                 "role": "system",
-                "content": [{"type": "text", "text": "Truth."}]
+                "content": [{"type": "text", "text": system_prompt}]
             },
             {
                 "role": "user", 
@@ -216,33 +219,30 @@ class WattsGemmaModel:
             tokenize=True,
             return_dict=True,
             return_tensors="pt"
-        ).to(model.device).to(torch.bfloat16)
+        ).to(model.device)
         
         # Generate response with safe parameters
         try:
             with torch.inference_mode():
                 outputs = model.generate(
-                    **inputs,
+                    input_ids=inputs["input_ids"],
+                    attention_mask=inputs["attention_mask"],
                     max_new_tokens=max_length,
                     temperature=temperature,
                     top_p=top_p,
                     do_sample=True,
                     pad_token_id=tokenizer.pad_token_id or tokenizer.eos_token_id,
+                    repetition_penalty=1.1,  # Discourage repetitive text
                 )
             
-            # Decode and return response
-            response = tokenizer.batch_decode(outputs, skip_special_tokens=True)[0]
-            
-            # Extract just the model's response (may need to adjust based on actual output format)
-            # The exact extraction logic might need tweaking based on the actual output format
-            system_prompt = "You are a helpful philosophical assistant."
-            if system_prompt in response:
-                response = response.split(system_prompt, 1)[1]
-            if prompt in response:
-                response = response.split(prompt, 1)[1].strip()
+            # Decode only the new tokens (response part)
+            input_length = inputs["input_ids"].shape[1]
+            response_tokens = outputs[0][input_length:]
+            response = tokenizer.decode(response_tokens, skip_special_tokens=True).strip()
+            response = model.split("#END")[0]
             
             return response
-        
+            
         except RuntimeError as e:
             # If we get a CUDA error, try again with safer parameters
             if "CUDA error" in str(e):

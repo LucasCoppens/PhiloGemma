@@ -103,6 +103,7 @@ class WattsGemmaTrainer:
         
         # 3. Setup training arguments
         run_name = f"wattsgemma_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        # Uses learning rate linear decay naturally
         training_args = TrainingArguments(
             output_dir=self.output_dir,
             per_device_train_batch_size=self.batch_size,
@@ -114,7 +115,8 @@ class WattsGemmaTrainer:
             save_strategy="epoch",
             fp16=True,  # Use mixed precision
             report_to="tensorboard",
-            run_name=run_name
+            run_name=run_name,
+            weight_decay=0.01,  # Add weight decay for regularization
         )
         
         # 4. Initialize trainer
@@ -145,15 +147,13 @@ class WattsGemmaTrainer:
     
     def _save_training_metadata(self, dataset):
         """Save metadata about the training run."""
-        unique_authors = set(s["author"] for s in dataset.text_samples)
-        unique_sources = set(s["source"] for s in dataset.text_samples)
-        
+        unique_sources = set(doc["source"] for doc in dataset.documents)
+    
         metadata = {
             "model_name": self.model_name,
             "training_date": datetime.now().isoformat(),
-            "num_documents": len(unique_sources),
+            "num_documents": len(dataset.documents),
             "num_chunks": len(dataset),
-            "authors": list(unique_authors),
             "sources": list(unique_sources),
             "training_params": {
                 "batch_size": self.batch_size,
