@@ -66,7 +66,7 @@ print(response)
 
 ## Hugging Face Integration
 
-The PhiloGemma adapter is available on Hugging Face:
+The aristotlegemma adapter is available on Hugging Face:
 
 ```python
 from transformers import Gemma3ForCausalLM, AutoTokenizer
