@@ -1,0 +1,19 @@
+{
+  "model_name": "google/gemma-3-1b-it",
+  "training_date": "2025-05-14T10:53:49.538659",
+  "num_documents": 3,
+  "num_chunks": 7164,
+  "sources": [
+    "The-Works-Of-Aristotle-Translated-Into-English-Vol-viii.txt",
+    "The-Works-Of-Aristotle-Translated-Into-English-Vol-i.txt",
+    "The-Works-Of-Aristotle-Translated-Into-English-Vol-v.txt"
+  ],
+  "training_params": {
+    "batch_size": 12,
+    "learning_rate": 0.0002,
+    "num_epochs": 3,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "max_sequence_length": 512
+  }
+}
