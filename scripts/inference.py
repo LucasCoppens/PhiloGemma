@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-Interactive CLI for WattsGemma model.
+Interactive CLI for PhiloGemma model.
 
 This script provides a command-line interface for interacting with either the base
-Gemma model or the fine-tuned WattsGemma model.
+Gemma model or the fine-tuned PhiloGemma model.
 
 Usage:
     # Use base model
     python inference.py
     
     # Use fine-tuned model
-    python inference.py --model_path models/wattsgemma
+    python inference.py --model_path models/philogemma
 """
 
 import argparse
@@ -22,11 +22,11 @@ from datetime import datetime
 # Add the parent directory to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.model import WattsGemmaModel
+from src.model import PhiloGemmaModel
 
 def parse_args():
     """Parse command line arguments."""
-    parser = argparse.ArgumentParser(description="Interactive CLI for WattsGemma")
+    parser = argparse.ArgumentParser(description="Interactive CLI for PhiloGemma")
     
     parser.add_argument(
         "--model_path",
@@ -111,7 +111,7 @@ def setup_logging(log_file=None):
 def print_header(model_path, base_model):
     """Print welcome header."""
     print("\n" + "=" * 80)
-    print(f"{'WattsGemma AI':^80}")
+    print(f"{'PhiloGemma AI':^80}")
     print("=" * 80)
     
     if model_path:
@@ -157,7 +157,7 @@ def main():
         logging.info("Loading model...")
         print("Loading model, please wait...")
         
-        model, tokenizer = WattsGemmaModel.load_for_inference(
+        model, tokenizer = PhiloGemmaModel.load_for_inference(
             adapter_path=args.model_path,
             base_model_name=args.base_model,
             cache_dir=args.cache_dir,
@@ -194,7 +194,7 @@ def main():
             # Generate response
             try:
                 print("\nThinking...")
-                response = WattsGemmaModel.generate_response(
+                response = PhiloGemmaModel.generate_response(
                     model=model,
                     tokenizer=tokenizer,
                     prompt=user_input,
@@ -205,8 +205,8 @@ def main():
                 )
                 
                 # Log and print response
-                # logging.info(f"WattsGemma: {response}")
-                conversation_history.append(f"WattsGemma: {response}")
+                logging.info(f"PhiloGemma: {response}")
+                conversation_history.append(f"PhiloGemma: {response}")
                 
                 print(f"\n{response}")
                 

@@ -8,8 +8,8 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-class WattsGemmaModel:
-    """Gemma 3 model configured for Alan Watts philosophical fine-tuning with QLoRA."""
+class PhiloGemmaModel:
+    """Gemma 3 model configured for philosophical fine-tuning with QLoRA."""
     
     def __init__(self, 
                  model_name: str = "google/gemma-3-1b-it",
@@ -119,8 +119,8 @@ class WattsGemmaModel:
         # Save a usage guide
         timestamp = datetime.now().strftime('%Y-%m-%d')
         with open(os.path.join(output_dir, "README.md"), "w") as f:
-            f.write(f"""# WattsGemma Model - {timestamp}
-                This directory contains QLoRA adapter weights for a Gemma 3 model fine-tuned on Alan Watts philosophical texts.
+            f.write(f"""# PhiloGemma Model - {timestamp}
+                This directory contains QLoRA adapter weights for a Gemma 3 model fine-tuned on philosophical texts.
 
                 ## Loading the model
 

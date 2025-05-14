@@ -5,8 +5,8 @@ from torch.utils.data import Dataset, DataLoader
 from transformers import PreTrainedTokenizer
 from typing import Dict, List, Tuple
 
-class WattsTextDataset(Dataset):
-    """Dataset for Alan Watts texts"""
+class PhiloTextDataset(Dataset):
+    """Dataset for Alan Philo texts"""
     
     def __init__(self, 
                  input_dir: str,
@@ -121,18 +121,18 @@ class WattsTextDataset(Dataset):
             "labels": labels
         }
 
-def create_watts_dataloader(
+def create_philo_dataloader(
     input_dir: str,
     tokenizer: PreTrainedTokenizer,
     batch_size: int = 4,
     max_length: int = 512,
     stride: int = 128,
     num_workers: int = 2
-) -> Tuple[DataLoader, WattsTextDataset]:
-    """Create dataloader for Alan Watts text dataset."""
+) -> Tuple[DataLoader, PhiloTextDataset]:
+    """Create dataloader for text dataset."""
     
     # Create dataset with fixed-length examples
-    dataset = WattsTextDataset(
+    dataset = PhiloTextDataset(
         input_dir=input_dir,
         tokenizer=tokenizer,
         max_length=max_length,

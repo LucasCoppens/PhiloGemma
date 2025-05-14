@@ -1,12 +1,12 @@
-"""WattsGemma - A philosophical Gemma LLM trained on wisdom literature."""
+"""PhiloGemma - A philosophical Gemma LLM trained on wisdom literature."""
 
-from .dataloader import WattsTextDataset, create_watts_dataloader
-from .model import WattsGemmaModel
-from .trainer import WattsGemmaTrainer
+from .dataloader import PhiloTextDataset, create_philo_dataloader
+from .model import PhiloGemmaModel
+from .trainer import PhiloGemmaTrainer
 
 __all__ = [
-    'WattsTextDataset',
-    'create_watts_dataloader',
-    'WattsGemmaModel',
-    'WattsGemmaTrainer'
+    'PhiloTextDataset',
+    'create_philo_dataloader',
+    'PhiloGemmaModel',
+    'PhiloGemmaTrainer'
 ]

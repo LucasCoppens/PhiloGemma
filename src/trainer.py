@@ -6,27 +6,27 @@ from typing import Dict, Any, Optional, Union
 import logging
 from datetime import datetime
 
-from .dataloader import create_watts_dataloader
-from .model import WattsGemmaModel
+from .dataloader import create_philo_dataloader
+from .model import PhiloGemmaModel
 
 logger = logging.getLogger(__name__)
 
-class WattsGemmaTrainer:
-    """Trainer for the Watts Gemma model."""
+class PhiloGemmaTrainer:
+    """Trainer for the Philo Gemma model."""
     
     def __init__(self,
                  input_dir: str,
                  output_dir: str,
                  model_name: str = "google/gemma-2b",
                  batch_size: int = 4,
-                 learning_rate: float = 5e-5,
+                 learning_rate: float = 1e-4,
                  num_epochs: int = 3,
                  gradient_accumulation_steps: int = 4,
                  lora_config: Optional[Dict[str, Any]] = None,
                  max_sequence_length: int = 512,
                  cache_dir: str = "models/cache"):
         """
-        Initialize trainer for WattsGemma.
+        Initialize trainer for PhiloGemma.
         
         Args:
             input_dir: Directory containing training files
@@ -62,7 +62,7 @@ class WattsGemmaTrainer:
         # Setup logging to file
         self._setup_logging()
         
-        logger.info(f"Initialized WattsGemmaTrainer with: "
+        logger.info(f"Initialized PhiloGemmaTrainer with: "
                    f"model={model_name}, batch_size={batch_size}, "
                    f"lr={learning_rate}, epochs={num_epochs}")
     
@@ -80,9 +80,9 @@ class WattsGemmaTrainer:
         logging.getLogger().addHandler(file_handler)
     
     def train(self):
-        """Train the model on watts texts."""
+        """Train the model on philosophical texts."""
         # 1. Initialize model
-        gemma_model = WattsGemmaModel(
+        gemma_model = PhiloGemmaModel(
             model_name=self.model_name,
             lora_r=self.lora_r,
             lora_alpha=self.lora_alpha,
@@ -94,7 +94,7 @@ class WattsGemmaTrainer:
         
         # 2. Create dataloader
         logger.info(f"Creating dataloader for files in {self.input_dir}")
-        dataloader, dataset = create_watts_dataloader(
+        dataloader, dataset = create_philo_dataloader(
             input_dir=self.input_dir,
             tokenizer=tokenizer,
             batch_size=self.batch_size,
@@ -102,7 +102,7 @@ class WattsGemmaTrainer:
         )
         
         # 3. Setup training arguments
-        run_name = f"wattsgemma_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        run_name = f"philogemma_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         # Uses learning rate linear decay naturally
         training_args = TrainingArguments(
             output_dir=self.output_dir,
@@ -116,7 +116,7 @@ class WattsGemmaTrainer:
             fp16=True,  # Use mixed precision
             report_to="tensorboard",
             run_name=run_name,
-            weight_decay=0.01,  # Add weight decay for regularization
+            weight_decay=0.003,
         )
         
         # 4. Initialize trainer
@@ -137,7 +137,7 @@ class WattsGemmaTrainer:
         
         # 6. Save model
         logger.info(f"Saving model to {self.output_dir}")
-        WattsGemmaModel.save_adapter(model, tokenizer, self.output_dir)
+        PhiloGemmaModel.save_adapter(model, tokenizer, self.output_dir)
         
         # 7. Save training metadata
         self._save_training_metadata(dataset)

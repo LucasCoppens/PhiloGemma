@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Train the WattsGemma model on PDFs.
+Train the PhiloGemma model on PDFs.
 
 Usage:
-    python train.py --input_dir data/wattstxts --output_dir models/wattsgemma
+    python train.py --input_dir data/dir --output_dir models/dir
 """
 
 import argparse
@@ -15,24 +15,24 @@ import sys
 # Add the parent directory to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.trainer import WattsGemmaTrainer
+from src.trainer import PhiloGemmaTrainer
 
 def parse_args():
     """Parse command line arguments."""
-    parser = argparse.ArgumentParser(description="Train WattsGemma on txt files")
+    parser = argparse.ArgumentParser(description="Train PhiloGemma on txt files")
     
     parser.add_argument(
         "--input_dir",
         type=str,
-        default="data/wattstxts",
+        required=True,
         help="Directory containing files for training"
     )
     
     parser.add_argument(
         "--output_dir",
         type=str,
-        default="models/wattsgemma",
-        help="Directory to save model and logs (default: models/wattsgemma)"
+        required=True,
+        help="Directory to save model and logs"
     )
     
     parser.add_argument(
@@ -123,7 +123,7 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
 
     # Initialize trainer
-    trainer = WattsGemmaTrainer(
+    trainer = PhiloGemmaTrainer(
         input_dir=args.input_dir,
         output_dir=args.output_dir,
         model_name=args.model_name,
