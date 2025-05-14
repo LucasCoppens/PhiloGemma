@@ -135,7 +135,7 @@ We distinguish between knowledge and wisdom by considering both their methods of
 <details>
 <summary><b>Standard gemma 3 response:</b> (Click to expand)</summary>
 Sunlight is a form of electromagnetic radiation, primarily visible light. It’s produced by the nuclear fusion reactions within the Sun’s core. This energy travels outwards as waves, creating what we perceive as illumination. Sunlight contains different wavelengths – shorter wavelengths like blue and violet appear to bounce off surfaces more readily, while longer wavelengths like red appear less so.  It’s crucial for photosynthesis in plants, fueling the food chain. Without solar energy, life as we know it wouldn't exist. The intensity and color depend on factors like cloud cover and atmospheric conditions. 
-<details>
+</details>
 
 <details>
 <summary><b>PhiloGemma (aristotlegemma) Response:</b> (Click to expand)</summary>
