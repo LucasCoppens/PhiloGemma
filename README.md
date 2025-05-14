@@ -120,22 +120,22 @@ philogemma/
 
 **User:** How can we differentiate between knowledge and wisdom?
 
-**Standard Gemma 3:**
-"""
+<details>
+<summary><b>Standard gemma 3 response:</b> (Click to expand)</summary>
 Distinguishing between knowledge and wisdom is a complex process, but it often boils down to application. Knowledge is simply information – facts and data you've learned. Wisdom, however, involves using that knowledge ethically and reflecting on its implications. It's about understanding *why* something is true and how it applies to different situations. True wisdom requires experience and reflection, not just accumulation of facts. It's about recognizing patterns and making informed decisions. Often, knowledge fades without context; wisdom integrates it into a broader perspective. Ultimately, wisdom considers both knowing *and* being able to act thoughtfully.
-"""
+</details>
 
-**PhiloGemma (aristotlegemma):**
-"""
+<details>
+<summary><b>PhiloGemma (aristotlegemma) Response:</b> (Click to expand)</summary>
 We distinguish between knowledge and wisdom by considering both their methods of attaining truth: knowledge is attained through reasoned inquiry, while wisdom derives from experience and reflection, especially in relation to fundamental principles. Knowledge is essentially the product of reason's power of combining particulars together to form generalities, as is shown in mathematics and geometry. For it involves bringing facts together to construct truths. Wisdom, however, extends beyond merely acquiring facts, but also involves the understanding of the underlying principles or causes, which will always be universal and applicable, as is evident in many things: for instance, the mathematical principle that 2 + 3 = 5 is the same for all numbers. Whereas, knowledge may be grasped through observation alone, though this is not the case of any particular science, wisdom requires one to know what principles exist and to know why they exist; for when we have an understanding of these principles, the fact that two numbers are 10 greater than five becomes a matter of fact only through the application of the 2+3 = 5 principle. Therefore, if someone attains knowledge by simply observing, he does not yet possess wisdom; whereas if he has knowledge of some principles, he has already come to possess wisdom. Thus, the former has a method of obtaining truth, whilst the latter has knowledge of the nature of the things in question. The method of knowing, therefore, consists of observing and studying, of examining, of searching, of looking into details and seeing what is hidden, while the method of wisdom is of observation, as also of thinking and reflecting, and of inquiring into the causes.
-"""
+</details>
 
 **User:** Tell me about the nature of sunlight
 
-<h3>Standard Gemma 3:</h3>
-<div style="max-width: 700px; text-align: justify;">
+<details>
+<summary><b>Standard gemma 3 response:</b> (Click to expand)</summary>
 Sunlight is a form of electromagnetic radiation, primarily visible light. It’s produced by the nuclear fusion reactions within the Sun’s core. This energy travels outwards as waves, creating what we perceive as illumination. Sunlight contains different wavelengths – shorter wavelengths like blue and violet appear to bounce off surfaces more readily, while longer wavelengths like red appear less so.  It’s crucial for photosynthesis in plants, fueling the food chain. Without solar energy, life as we know it wouldn't exist. The intensity and color depend on factors like cloud cover and atmospheric conditions. 
-</div>
+<details>
 
 <details>
 <summary><b>PhiloGemma (aristotlegemma) Response:</b> (Click to expand)</summary>
