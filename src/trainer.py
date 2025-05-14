@@ -19,7 +19,7 @@ class WattsGemmaTrainer:
                  output_dir: str,
                  model_name: str = "google/gemma-2b",
                  batch_size: int = 4,
-                 learning_rate: float = 2e-4,
+                 learning_rate: float = 5e-5,
                  num_epochs: int = 3,
                  gradient_accumulation_steps: int = 4,
                  lora_config: Optional[Dict[str, Any]] = None,

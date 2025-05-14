@@ -141,7 +141,8 @@ class WattsGemmaModel:
                         adapter_path: Optional[str] = None, 
                         base_model_name: str = "google/gemma-3-1b-it",
                         cache_dir: str = "models/cache",
-                        quantize: bool = True) -> Tuple[Gemma3ForCausalLM, AutoTokenizer]:
+                        quantize: bool = True,
+                        adapter_scale: float = 1.0) -> Tuple[Gemma3ForCausalLM, AutoTokenizer]:
         """
         Load a model for inference - either base model or fine-tuned.
         """
@@ -178,6 +179,12 @@ class WattsGemmaModel:
         if adapter_path:
             logger.info(f"Loading adapter weights from: {adapter_path}")
             model = PeftModel.from_pretrained(base_model, adapter_path)
+        
+            # Add this line to scale the adapter's influence
+            if hasattr(model, "peft_config") and "default" in model.peft_config:
+                logger.info(f"Setting adapter scaling factor to {adapter_scale}")
+                model.peft_config["default"].scaling = adapter_scale 
+        
             logger.info("Successfully loaded fine-tuned model")
         else:
             logger.info("Using base model (no fine-tuning)")
@@ -239,7 +246,7 @@ class WattsGemmaModel:
             input_length = inputs["input_ids"].shape[1]
             response_tokens = outputs[0][input_length:]
             response = tokenizer.decode(response_tokens, skip_special_tokens=True).strip()
-            response = model.split("#END")[0]
+            response = response.split("#END")[0]
             
             return response
             

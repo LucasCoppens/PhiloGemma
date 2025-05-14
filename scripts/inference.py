@@ -43,6 +43,14 @@ def parse_args():
         help="Base model name (default: google/gemma-3-1b-it)"
     )
     
+    # Add this new argument
+    parser.add_argument(
+        "--adapter_scale",
+        type=float,
+        default=1.0,
+        help="Scaling factor for adapter influence (default: 1.0, higher = more stylized)"
+    )
+    
     parser.add_argument(
         "--temperature",
         type=float,
@@ -153,7 +161,8 @@ def main():
             adapter_path=args.model_path,
             base_model_name=args.base_model,
             cache_dir=args.cache_dir,
-            quantize=not args.no_quantize
+            quantize=not args.no_quantize,
+            adapter_scale=args.adapter_scale
         )
         
         logging.info("Model loaded successfully")
