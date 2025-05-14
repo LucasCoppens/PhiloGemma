@@ -117,6 +117,8 @@ class PhiloGemmaTrainer:
             report_to="tensorboard",
             run_name=run_name,
             weight_decay=0.003,
+            # gradient_checkpointing=True,
+            # gradient_checkpointing_kwargs={"use_reentrant": False}
         )
         
         # 4. Initialize trainer

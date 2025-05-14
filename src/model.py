@@ -197,7 +197,7 @@ class PhiloGemmaModel:
         model: Gemma3ForCausalLM,
         tokenizer: AutoTokenizer,
         prompt: str,
-        max_length: int = 150,
+        max_length: int = 512,
         temperature: float = 0.7,
         top_p: float = 0.9,
         is_finetuned: bool = False
@@ -205,7 +205,8 @@ class PhiloGemmaModel:
         """Generate a response with the model."""
         
         # Add a system prompt to guide the conversation style
-        system_prompt = "You are an AI assistant. Provide insightful but concise responses (maximum 6-7 sentences). After you are done formulating your answer, write \"#END\". Engage with the user in a conversational manner rather than delivering long lectures. After sharing your wisdom, end with a thoughtful question to continue the dialogue."
+        system_prompt = "You are a conversational partner. Provide concise responses (7-8 sentences max). You MUST end your response with the exact text '#END' on its own line. This is critical."
+        # system_prompt = "Tell me about blue skies"
         
         # For Gemma 3, use the chat template with system prompt
         messages = [
@@ -247,6 +248,14 @@ class PhiloGemmaModel:
             response_tokens = outputs[0][input_length:]
             response = tokenizer.decode(response_tokens, skip_special_tokens=True).strip()
             response = response.split("#END")[0]
+
+            # Cutoff after 10 sentences
+            if response.count(".") > 8:
+                # Split by periods and rejoin only the first 10 sentences
+                sentences = response.split(".")
+                response = ".".join(sentences[:8]) + "."
+                # Clean up any trailing periods
+                response = response.replace("..", ".")
             
             return response
             
